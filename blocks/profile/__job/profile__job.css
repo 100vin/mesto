@@ -1,5 +1,5 @@
-.profile__about {
-  grid-area: about;
+.profile__job {
+  grid-area: job;
   margin: 0;
   white-space: nowrap;
   overflow: hidden;
@@ -7,7 +7,7 @@
 }
 
 @media screen and (max-width: 768px) {
-  .profile__about {
+  .profile__job {
     font-size: 14px;
     justify-self: center;
   }

@@ -1,0 +1,11 @@
+.popup__input {
+  font: 400 14px Inter, Arial, Helvetica, sans-serif;
+  padding: 13px 0;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
+}
+
+.popup__input:not(:last-of-type) {
+  margin: 0 0 17px;
+}
