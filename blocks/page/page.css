@@ -1,11 +1,10 @@
 .page {
   display: flex;
   flex-direction: column;
-  max-width: 880px;
+  max-width: calc(880px + 19px * 2);
   min-width: 320px;
   min-height: 100vh;
   margin: 0 auto;
-  padding: 0 19px;
   background-color: #000;
   font-family: Inter, Arial, Helvetica, sans-serif;
   font-weight: 400;

@@ -14,32 +14,35 @@ function togglePopup() {
   if (popup.classList.contains('popup_opened')) {
     nameInput.value = profileName.textContent;
     jobInput.value = profileJob.textContent;
-    document.addEventListener('keydown', closePopupOnEsc);
     nameInput.focus();
-  } else {
-    document.removeEventListener('keydown', closePopupOnEsc);
-  }
+    // document.addEventListener('keydown', closePopupOnEsc);
+  } 
+  // else {
+  //   document.removeEventListener('keydown', closePopupOnEsc);
+  // }
   
 }
 
-function closePopupOnEsc(e) {
-  if (e.keyCode === 27) {
-    togglePopup();
-  }
+// function closePopupOnEsc(e) {
+//   if (e.keyCode === 27) {
+//     togglePopup();
+//   }
+// }
+
+function formSubmitHandler(e) {
+  e.preventDefault();
+  profileName.textContent = nameInput.value;
+  profileJob.textContent = jobInput.value;
+  togglePopup();
 }
 
 profileEditBtn.addEventListener('click', togglePopup);
 popupCloseBtn.addEventListener('click', togglePopup);
 
-popup.addEventListener('click', function(e) {
-  if (e.target === e.currentTarget) {
-    togglePopup();
-  }
-});
+// popup.addEventListener('click', function(e) {
+//   if (e.target === e.currentTarget) {
+//     togglePopup();
+//   }
+// });
 
-formElement.addEventListener('submit', function(e) {
-  e.preventDefault();
-  profileName.textContent = nameInput.value;
-  profileJob.textContent = jobInput.value;
-  togglePopup();
-});
+formElement.addEventListener('submit', formSubmitHandler);

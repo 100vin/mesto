@@ -10,6 +10,7 @@
   .profile__job {
     font-size: 14px;
     justify-self: center;
+    max-width: 100%;
   }
 }
 
