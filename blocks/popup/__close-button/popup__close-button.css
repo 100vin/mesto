@@ -4,7 +4,7 @@
   right: -40px;
   width: 32px;
   height: 32px;
-  background: transparent url(/images/close_icon.svg) no-repeat center / contain;
+  background: transparent url(../../../images/close_icon.svg) no-repeat center / contain;
   border: none;
   cursor: pointer;
   transition: opacity .2s ease;
