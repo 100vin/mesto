@@ -1,7 +1,8 @@
 .element__image {
   display: block;
   width: 100%;
-  aspect-ratio: 1 / 1;
+  /* aspect-ratio: 1 / 1; */
+  min-height: 282px;
   object-fit: cover;
   background-color: #ddd;
 }
