@@ -5,6 +5,7 @@
   font-size: 18px;
   color: #fff;
   background-color: #000;
+  border-radius: 2px;
   border: none;
   cursor: pointer;
   transition: opacity .2s ease;

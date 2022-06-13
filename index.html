@@ -23,7 +23,16 @@
     </section>
     <section class="elements">
       <ul class="elements__list">
-        <li class="elements__item element">
+        <template id="card-template">
+          <li class="elements__item element">
+            <img class="element__image" src="" alt="">
+            <div class="element__info">
+              <h2 class="element__name"></h2>
+              <button class="element__like-button" type="button"></button>
+            </div>
+          </li>
+        </template>
+        <!-- <li class="elements__item element">
           <img class="element__image" src="./images/shantar.jpg" alt="Шантарские острова">
           <div class="element__info">
             <h2 class="element__name">Шантарские острова</h2>
@@ -64,7 +73,7 @@
             <h2 class="element__name">Севастополь</h2>
             <button class="element__like-button" type="button"></button>
           </div>
-        </li>
+        </li> -->
       </ul>
     </section>
   </main>
@@ -73,14 +82,26 @@
     <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
   </footer>
 
-  <div class="popup">
+  <div class="popup" id="popup-edit-profile">
     <div class="popup__container">
       <button class="popup__close-button" type="button"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
-      <form class="popup__form" name="profile">
+      <form class="popup__form" name="edit-profile">
         <input class="popup__input popup__input_data_name" name="name" type="text" value="">
         <input class="popup__input popup__input_data_job" name="job" type="text" value="">
         <button class="popup__submit" type="submit">Сохранить</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="popup" id="popup-add-card">
+    <div class="popup__container">
+      <button class="popup__close-button" type="button"></button>
+      <h2 class="popup__title">Новое место</h2>
+      <form class="popup__form" name="add-card">
+        <input class="popup__input popup__input_data_title" name="title" type="text" value="" placeholder="Название">
+        <input class="popup__input popup__input_data_link" name="link" type="text" value="" placeholder="Ссылка на картинку">
+        <button class="popup__submit" type="submit">Создать</button>
       </form>
     </div>
   </div>
