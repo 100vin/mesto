@@ -26,6 +26,7 @@
         <template id="card-template">
           <li class="elements__item element">
             <img class="element__image" src="" alt="">
+            <button class="element__remove-button" type="button"></button>
             <div class="element__info">
               <h2 class="element__name"></h2>
               <button class="element__like-button" type="button"></button>
@@ -86,7 +87,7 @@
     <div class="popup__container">
       <button class="popup__close-button" type="button"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
-      <form class="popup__form" name="edit-profile">
+      <form class="popup__form" name="formEditProfile">
         <input class="popup__input popup__input_data_name" name="name" type="text" value="">
         <input class="popup__input popup__input_data_job" name="job" type="text" value="">
         <button class="popup__submit" type="submit">Сохранить</button>
@@ -98,7 +99,7 @@
     <div class="popup__container">
       <button class="popup__close-button" type="button"></button>
       <h2 class="popup__title">Новое место</h2>
-      <form class="popup__form" name="add-card">
+      <form class="popup__form" name="formAddCard">
         <input class="popup__input popup__input_data_title" name="title" type="text" value="" placeholder="Название">
         <input class="popup__input popup__input_data_link" name="link" type="text" value="" placeholder="Ссылка на картинку">
         <button class="popup__submit" type="submit">Создать</button>
