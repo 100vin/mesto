@@ -23,7 +23,7 @@
     </section>
     <section class="elements">
       <ul class="elements__list">
-        <template id="card-template">
+        <template id="cardTemplate">
           <li class="elements__item element">
             <img class="element__image" src="" alt="">
             <button class="element__remove-button" type="button"></button>
@@ -33,48 +33,6 @@
             </div>
           </li>
         </template>
-        <!-- <li class="elements__item element">
-          <img class="element__image" src="./images/shantar.jpg" alt="Шантарские острова">
-          <div class="element__info">
-            <h2 class="element__name">Шантарские острова</h2>
-            <button class="element__like-button element__like-button_active" type="button"></button>
-          </div>
-        </li>
-        <li class="elements__item element">
-          <img class="element__image" src="./images/kamchatka.jpg" alt="Камчатка">
-          <div class="element__info">
-            <h2 class="element__name">Камчатка</h2>
-            <button class="element__like-button" type="button"></button>
-          </div>
-        </li>
-        <li class="elements__item element">
-          <img class="element__image" src="./images/sahalin.jpg" alt="Сахалин">
-          <div class="element__info">
-            <h2 class="element__name">Сахалин</h2>
-            <button class="element__like-button" type="button"></button>
-          </div>
-        </li>
-        <li class="elements__item element">
-          <img class="element__image" src="./images/yalta.jpg" alt="Ялта">
-          <div class="element__info">
-            <h2 class="element__name">Ялта</h2>
-            <button class="element__like-button" type="button"></button>
-          </div>
-        </li>
-        <li class="elements__item element">
-          <img class="element__image" src="./images/koktebel.jpg" alt="Коктебель">
-          <div class="element__info">
-            <h2 class="element__name">Коктебель</h2>
-            <button class="element__like-button" type="button"></button>
-          </div>
-        </li>
-        <li class="elements__item element">
-          <img class="element__image" src="./images/sevastopol.jpg" alt="Севастополь">
-          <div class="element__info">
-            <h2 class="element__name">Севастополь</h2>
-            <button class="element__like-button" type="button"></button>
-          </div>
-        </li> -->
       </ul>
     </section>
   </main>
@@ -83,7 +41,7 @@
     <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
   </footer>
 
-  <div class="popup" id="popup-edit-profile">
+  <div class="popup" id="popupEditProfile">
     <div class="popup__container">
       <button class="popup__close-button" type="button"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
@@ -95,7 +53,7 @@
     </div>
   </div>
 
-  <div class="popup" id="popup-add-card">
+  <div class="popup" id="popupAddCard">
     <div class="popup__container">
       <button class="popup__close-button" type="button"></button>
       <h2 class="popup__title">Новое место</h2>
@@ -105,6 +63,14 @@
         <button class="popup__submit" type="submit">Создать</button>
       </form>
     </div>
+  </div>
+
+  <div class="popup" id="popupShowPhoto">
+    <figure class="popup__figure">
+      <button class="popup__close-button" type="button"></button>
+      <img class="popup__photo" src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg" alt="Название">
+      <figcaption class="popup__caption">Название</figcaption>
+    </figure>
   </div>
 
   <script src="./scripts/index.js"></script>
