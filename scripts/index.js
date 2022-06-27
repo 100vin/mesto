@@ -66,7 +66,7 @@ function closePopup(popup) {
 
 // Закрытие всплывающего окна при нажатии "Escape"
 function closePopupOnEsc(e) {
-  if (e.keyCode === 27) {
+  if (e.key === 'Escape') {
     const popup = document.querySelector('.popup_opened');
     closePopup(popup);
   }
@@ -126,8 +126,7 @@ function saveCard(e) {
     name: inputTitle.value,
     link: inputLink.value
   });
-  inputTitle.value = '';
-  inputLink.value = '';
+  e.target.reset();
   closePopup(popupAddCard);
 }
 
@@ -142,15 +141,25 @@ formEditProfile.addEventListener('submit', saveProfile);
 profileAddBtn.addEventListener('click', () => openPopup(popupAddCard));
 formAddCard.addEventListener('submit', saveCard);
 
-// Закрытие попапов по клику на крестик
-popupCloseButtons.forEach(button => {
-  const popup = button.closest('.popup');
-  button.addEventListener('click', () => closePopup(popup));
-});
+// // Закрытие попапов по клику на крестик
+// popupCloseButtons.forEach(button => {
+//   const popup = button.closest('.popup');
+//   button.addEventListener('click', () => closePopup(popup));
+// });
 
-// Закрытие попапов по клику на оверлей
+// // Закрытие попапов по клику на оверлей
+// popups.forEach(popup => {
+//   popup.addEventListener('click', e => {
+//     if (e.target === e.currentTarget) closePopup(popup);
+//   })
+// });
+
+// Закрытие попапов по клику на оверлей и крестик
 popups.forEach(popup => {
   popup.addEventListener('click', e => {
-    if (e.target === e.currentTarget) closePopup(popup);
+    if (
+      e.target.classList.contains('popup_opened') || 
+      e.target.classList.contains('popup__close-button')
+    ) closePopup(popup);
   })
 });

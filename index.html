@@ -46,20 +46,24 @@
       <button class="popup__close-button" type="button"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
       <form class="popup__form" name="formEditProfile">
-        <input class="popup__input popup__input_data_name" name="name" type="text" value="">
-        <input class="popup__input popup__input_data_job" name="job" type="text" value="">
+        <input class="popup__input popup__input_data_name" id="input-name" name="name" type="text" value="" minlength="2" maxlength="40" placeholder="Имя" required>
+        <span class="popup__input-error input-name-error"></span>
+        <input class="popup__input popup__input_data_job" id="input-job" name="job" type="text" value="" minlength="2" maxlength="200" placeholder="О себе" required>
+        <span class="popup__input-error input-job-error"></span>
         <button class="popup__submit" type="submit">Сохранить</button>
       </form>
     </div>
   </div>
-
+  
   <div class="popup" id="popupAddCard">
     <div class="popup__container">
       <button class="popup__close-button" type="button"></button>
       <h2 class="popup__title">Новое место</h2>
       <form class="popup__form" name="formAddCard">
-        <input class="popup__input popup__input_data_title" name="title" type="text" value="" placeholder="Название">
-        <input class="popup__input popup__input_data_link" name="link" type="text" value="" placeholder="Ссылка на картинку">
+        <input class="popup__input popup__input_data_title" id="input-title" name="title" type="text" value="" minlength="2" maxlength="30" placeholder="Название" required>
+        <span class="popup__input-error input-title-error">Вы пропустили это поле.</span>
+        <input class="popup__input popup__input_data_link" id="input-link" name="link" type="url" value="" placeholder="Ссылка на картинку" required>
+        <span class="popup__input-error input-link-error"></span>
         <button class="popup__submit" type="submit">Создать</button>
       </form>
     </div>
@@ -74,5 +78,6 @@
   </div>
 
   <script src="./scripts/index.js"></script>
+  <script src="./scripts/validate.js"></script>
 </body>
 </html>
