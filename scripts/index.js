@@ -35,17 +35,16 @@ const profileEditBtn = document.querySelector('.profile__edit-button');
 const profileAddBtn = document.querySelector('.profile__add-button');
 
 const popups = document.querySelectorAll('.popup');
-const popupCloseButtons = document.querySelectorAll('.popup__close-button');
 
 const popupEditProfile = document.querySelector('#popupEditProfile');
 const formEditProfile = document.forms.formEditProfile;
-const inputName = popupEditProfile.querySelector('.popup__input_data_name');
-const inputJob = popupEditProfile.querySelector('.popup__input_data_job');
+const inputName = formEditProfile.elements.name;
+const inputJob = formEditProfile.elements.job;
 
 const popupAddCard = document.querySelector('#popupAddCard');
 const formAddCard = document.forms.formAddCard;
-const inputTitle = popupAddCard.querySelector('.popup__input_data_title');
-const inputLink = popupAddCard.querySelector('.popup__input_data_link');
+const inputTitle = formAddCard.elements.title;
+const inputLink = formAddCard.elements.link;
 
 const popupShowPhoto = document.querySelector('#popupShowPhoto');
 const popupPhoto = popupShowPhoto.querySelector('.popup__photo');
@@ -142,6 +141,7 @@ profileAddBtn.addEventListener('click', () => openPopup(popupAddCard));
 formAddCard.addEventListener('submit', saveCard);
 
 // // Закрытие попапов по клику на крестик
+// const popupCloseButtons = document.querySelectorAll('.popup__close-button');
 // popupCloseButtons.forEach(button => {
 //   const popup = button.closest('.popup');
 //   button.addEventListener('click', () => closePopup(popup));
