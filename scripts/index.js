@@ -1,3 +1,12 @@
+// Настройки для валидации форм
+const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_active'
+}
+
 // Шесть карточек «из коробки»
 const initialCards = [
   {
@@ -53,7 +62,6 @@ const popupCaption = popupShowPhoto.querySelector('.popup__caption');
 // Открытие всплывающего окна
 function openPopup(popup) {
   popup.classList.add('popup_opened');
-  // popup.querySelector('.popup__input').focus();
   document.addEventListener('keydown', closePopupOnEsc);
 }
 
@@ -75,7 +83,15 @@ function closePopupOnEsc(e) {
 function openPopupEditProfile() {
   inputName.value = profileName.textContent;
   inputJob.value = profileJob.textContent;
+  resetValidation(formEditProfile, validationConfig);
   openPopup(popupEditProfile);
+}
+
+// Открытие окна добавления карточки
+function openPopupAddCard() {
+  formAddCard.reset();
+  resetValidation(formAddCard, validationConfig);
+  openPopup(popupAddCard);
 }
 
 // Открытие окна с фотографией
@@ -137,29 +153,18 @@ profileEditBtn.addEventListener('click', openPopupEditProfile);
 formEditProfile.addEventListener('submit', saveProfile);
 
 // Заполнение данных карточки
-profileAddBtn.addEventListener('click', () => openPopup(popupAddCard));
+profileAddBtn.addEventListener('click', openPopupAddCard);
 formAddCard.addEventListener('submit', saveCard);
-
-// // Закрытие попапов по клику на крестик
-// const popupCloseButtons = document.querySelectorAll('.popup__close-button');
-// popupCloseButtons.forEach(button => {
-//   const popup = button.closest('.popup');
-//   button.addEventListener('click', () => closePopup(popup));
-// });
-
-// // Закрытие попапов по клику на оверлей
-// popups.forEach(popup => {
-//   popup.addEventListener('click', e => {
-//     if (e.target === e.currentTarget) closePopup(popup);
-//   })
-// });
 
 // Закрытие попапов по клику на оверлей и крестик
 popups.forEach(popup => {
-  popup.addEventListener('click', e => {
+  popup.addEventListener('mousedown', e => {
     if (
       e.target.classList.contains('popup_opened') || 
       e.target.classList.contains('popup__close-button')
     ) closePopup(popup);
   })
 });
+
+// Валидация вводимых данных
+enableValidation(validationConfig);
