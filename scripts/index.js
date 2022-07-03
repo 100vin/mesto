@@ -89,7 +89,6 @@ function openPopupEditProfile() {
 
 // Открытие окна добавления карточки
 function openPopupAddCard() {
-  formAddCard.reset();
   resetValidation(formAddCard, validationConfig);
   openPopup(popupAddCard);
 }
