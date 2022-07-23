@@ -110,10 +110,15 @@ function saveProfile(e) {
   closePopup(popupEditProfile);
 }
 
+// Создание карточки
+function createCard(data) {
+  const card = new Card(data, '#cardTemplate', openPopupShowPhoto);
+  return card.createCard();
+}
+
 // Добавление карточки
 function addCard(data) {
-  const card = new Card(data, '#cardTemplate', openPopupShowPhoto);
-  cardList.prepend(card.createCard());
+  cardList.prepend(createCard(data));
 }
 
 // Сохранение карточки

@@ -15,9 +15,17 @@ export default class Card {
       .cloneNode(true);
   }
 
+  _handleLikeClick() {
+    this._cardlike.classList.toggle('element__like-button_active');
+  }
+  
+  _handleRemoveClick() {
+    this._element.remove();
+  }
+
   _setEventListeners() {
-    this._cardlike.addEventListener('click', () => this._cardlike.classList.toggle('element__like-button_active'));
-    this._cardRemove.addEventListener('click', () => this._element.remove());
+    this._cardlike.addEventListener('click', () => this._handleLikeClick());
+    this._cardRemove.addEventListener('click', () => this._handleRemoveClick());
     this._cardImage.addEventListener('click', () => this._handleImageClick(this._data));
   }
 
