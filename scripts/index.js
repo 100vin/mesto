@@ -1,3 +1,6 @@
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
+
 // Настройки для валидации форм
 const validationConfig = {
   formSelector: '.popup__form',
@@ -35,7 +38,6 @@ const initialCards = [
   }
 ];
 
-const cardTemplate = document.querySelector('#cardTemplate').content.querySelector('.element');
 const cardList = document.querySelector('.elements__list');
 
 const profileName = document.querySelector('.profile__name');
@@ -83,13 +85,12 @@ function closePopupOnEsc(e) {
 function openPopupEditProfile() {
   inputName.value = profileName.textContent;
   inputJob.value = profileJob.textContent;
-  resetValidation(formEditProfile, validationConfig);
   openPopup(popupEditProfile);
 }
 
 // Открытие окна добавления карточки
 function openPopupAddCard() {
-  resetValidation(formAddCard, validationConfig);
+  // resetValidation(formAddCard, validationConfig);
   openPopup(popupAddCard);
 }
 
@@ -109,28 +110,10 @@ function saveProfile(e) {
   closePopup(popupEditProfile);
 }
 
-// Создание карточки
-function createCard(card) {
-  const cardElement = cardTemplate.cloneNode(true);
-  const cardName = cardElement.querySelector('.element__name');
-  const cardImage = cardElement.querySelector('.element__image');
-  const cardlike = cardElement.querySelector('.element__like-button');
-  const cardRemove = cardElement.querySelector('.element__remove-button');
-  
-  cardName.textContent = card.name;
-  cardImage.src = card.link;
-  cardImage.alt = card.name;
-
-  cardlike.addEventListener('click', () => cardlike.classList.toggle('element__like-button_active'));
-  cardRemove.addEventListener('click', () => cardElement.remove());
-  cardImage.addEventListener('click', () => openPopupShowPhoto(card));
-  
-  return cardElement;
-}
-
 // Добавление карточки
-function addCard(card) {
-  cardList.prepend(createCard(card));
+function addCard(data) {
+  const card = new Card(data, '#cardTemplate', openPopupShowPhoto);
+  cardList.prepend(card.createCard());
 }
 
 // Сохранение карточки
@@ -147,12 +130,24 @@ function saveCard(e) {
 // Заполнение начальными карточками
 initialCards.forEach(card => addCard(card));
 
+// Валидация вводимых данных
+const validatorEditProfile = new FormValidator(formEditProfile, validationConfig);
+validatorEditProfile.enableValidation();
+const validatorAddCard = new FormValidator(formAddCard, validationConfig);
+validatorAddCard.enableValidation();
+
 // Редактирование профиля
-profileEditBtn.addEventListener('click', openPopupEditProfile);
+profileEditBtn.addEventListener('click', () => {
+  openPopupEditProfile();
+  validatorEditProfile.resetValidation();
+});
 formEditProfile.addEventListener('submit', saveProfile);
 
 // Заполнение данных карточки
-profileAddBtn.addEventListener('click', openPopupAddCard);
+profileAddBtn.addEventListener('click', () => {
+  openPopupAddCard();
+  validatorAddCard.resetValidation();
+});
 formAddCard.addEventListener('submit', saveCard);
 
 // Закрытие попапов по клику на оверлей и крестик
@@ -164,6 +159,3 @@ popups.forEach(popup => {
     ) closePopup(popup);
   })
 });
-
-// Валидация вводимых данных
-enableValidation(validationConfig);
