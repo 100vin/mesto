@@ -1,166 +1,95 @@
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
+import Section from './Section.js';
+import UserInfo from './UserInfo.js';
+import PopupWithImage from './PopupWithImage.js';
+import PopupWithForm from './PopupWithForm.js';
+import {
+  config,
+  initialCards,
+  buttonEditProfile,
+  buttonAddCard
+} from './constants.js';
 
-// Настройки для валидации форм
-const validationConfig = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__submit',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_active'
+
+// Валидация вводимых данных
+const validatorEditProfile = new FormValidator(document.forms.formEditProfile, config);
+const validatorAddCard = new FormValidator(document.forms.formAddCard, config);
+validatorEditProfile.enableValidation();
+validatorAddCard.enableValidation();
+
+// Создание карточки
+function createCard(data) {
+  const card = new Card(data, '#cardTemplate', config, openPopupShowPhoto);
+  return card.createCard();
 }
 
-// Шесть карточек «из коробки»
-const initialCards = [
+// Секция для отрисовки карточек
+const cardList = new Section(
   {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+    items: initialCards,
+    renderer: (data) => {
+      cardList.addItem(createCard(data));
+    }
   },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
+  '.elements__list'
+);
 
-const cardList = document.querySelector('.elements__list');
+// Объект с информацией о пользователе
+const userInfo = new UserInfo(config);
 
-const profileName = document.querySelector('.profile__name');
-const profileJob = document.querySelector('.profile__job');
-const profileEditBtn = document.querySelector('.profile__edit-button');
-const profileAddBtn = document.querySelector('.profile__add-button');
-
-const popups = document.querySelectorAll('.popup');
-
-const popupEditProfile = document.querySelector('#popupEditProfile');
-const formEditProfile = document.forms.formEditProfile;
-const inputName = formEditProfile.elements.name;
-const inputJob = formEditProfile.elements.job;
-
-const popupAddCard = document.querySelector('#popupAddCard');
-const formAddCard = document.forms.formAddCard;
-const inputTitle = formAddCard.elements.title;
-const inputLink = formAddCard.elements.link;
-
-const popupShowPhoto = document.querySelector('#popupShowPhoto');
-const popupPhoto = popupShowPhoto.querySelector('.popup__photo');
-const popupCaption = popupShowPhoto.querySelector('.popup__caption');
-
-// Открытие всплывающего окна
-function openPopup(popup) {
-  popup.classList.add('popup_opened');
-  document.addEventListener('keydown', closePopupOnEsc);
+// Обработчик формы редактирования профиля
+function handleEditProfileSubmit(formData) {
+  userInfo.setUserInfo({
+    name: formData.name, 
+    job: formData.job
+  });
 }
 
-// Закрытие всплывающего окна
-function closePopup(popup) {
-  popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closePopupOnEsc);
+// Обработчик формы создания карточки
+function handleAddCardSubmit(formData) {
+  cardList.addItem(createCard({
+    name: formData.title,
+    link: formData.link
+  }));
 }
 
-// Закрытие всплывающего окна при нажатии "Escape"
-function closePopupOnEsc(e) {
-  if (e.key === 'Escape') {
-    const popup = document.querySelector('.popup_opened');
-    closePopup(popup);
-  }
-}
+// Попап редактирования профиля
+const popupEditProfile = new PopupWithForm('#popupEditProfile', config, handleEditProfileSubmit);
+
+// Попап создания карточки
+const popupAddCard = new PopupWithForm('#popupAddCard', config, handleAddCardSubmit);
+
+// Попап с фотографией
+const popupShowPhoto = new PopupWithImage('#popupShowPhoto', config);
 
 // Открытие окна редактирования профиля
 function openPopupEditProfile() {
-  inputName.value = profileName.textContent;
-  inputJob.value = profileJob.textContent;
-  openPopup(popupEditProfile);
+  popupEditProfile.setInputValues(userInfo.getUserInfo());
+  popupEditProfile.open();
 }
 
 // Открытие окна добавления карточки
 function openPopupAddCard() {
-  // resetValidation(formAddCard, validationConfig);
-  openPopup(popupAddCard);
+  popupAddCard.open();
 }
 
 // Открытие окна с фотографией
-function openPopupShowPhoto(card) {
-  popupPhoto.src = card.link;
-  popupPhoto.alt = card.name;
-  popupCaption.textContent = card.name;
-  openPopup(popupShowPhoto)
+function openPopupShowPhoto(data) {
+  popupShowPhoto.open(data);
 }
 
-// Сохранение профиля
-function saveProfile(e) {
-  e.preventDefault();
-  profileName.textContent = inputName.value;
-  profileJob.textContent = inputJob.value;
-  closePopup(popupEditProfile);
-}
-
-// Создание карточки
-function createCard(data) {
-  const card = new Card(data, '#cardTemplate', openPopupShowPhoto);
-  return card.createCard();
-}
-
-// Добавление карточки
-function addCard(data) {
-  cardList.prepend(createCard(data));
-}
-
-// Сохранение карточки
-function saveCard(e) {
-  e.preventDefault();
-  addCard({
-    name: inputTitle.value,
-    link: inputLink.value
-  });
-  e.target.reset();
-  closePopup(popupAddCard);
-}
-
-// Заполнение начальными карточками
-initialCards.forEach(card => addCard(card));
-
-// Валидация вводимых данных
-const validatorEditProfile = new FormValidator(formEditProfile, validationConfig);
-validatorEditProfile.enableValidation();
-const validatorAddCard = new FormValidator(formAddCard, validationConfig);
-validatorAddCard.enableValidation();
-
-// Редактирование профиля
-profileEditBtn.addEventListener('click', () => {
+// Обработчик кнопки редактирование профиля
+buttonEditProfile.addEventListener('click', () => {
   openPopupEditProfile();
   validatorEditProfile.resetValidation();
 });
-formEditProfile.addEventListener('submit', saveProfile);
 
-// Заполнение данных карточки
-profileAddBtn.addEventListener('click', () => {
+// Обработчик кнопки добавления карточки
+buttonAddCard.addEventListener('click', () => {
   openPopupAddCard();
   validatorAddCard.resetValidation();
 });
-formAddCard.addEventListener('submit', saveCard);
 
-// Закрытие попапов по клику на оверлей и крестик
-popups.forEach(popup => {
-  popup.addEventListener('mousedown', e => {
-    if (
-      e.target.classList.contains('popup_opened') || 
-      e.target.classList.contains('popup__close-button')
-    ) closePopup(popup);
-  })
-});
+// Заполнение начальными карточками
+cardList.renderItems();
