@@ -1,17 +1,23 @@
-export const config = {
+export const configValidation = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__submit',
   inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_active',
+  errorClass: 'popup__input-error_active'
+}
 
+export const configPopup = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
   nameSelector: '.profile__name', 
   jobSelector: '.profile__job',
   photoSelector: '.popup__photo',
   captionSelector: '.popup__caption',
   popupOpenedClass: 'popup_opened',
-  popupCloseButtonClass: 'popup__close-button',
+  popupCloseButtonClass: 'popup__close-button'
+}
 
+export const configCard = {
   cardSelector: '.element',
   cardNameSelector: '.element__name',
   cardImageSelector: '.element__image',

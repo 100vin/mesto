@@ -6,7 +6,9 @@ import UserInfo from '../components/UserInfo.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import {
-  config,
+  configValidation,
+  configPopup,
+  configCard,
   initialCards,
   buttonEditProfile,
   buttonAddCard
@@ -14,14 +16,14 @@ import {
 
 
 // Валидация вводимых данных
-const validatorEditProfile = new FormValidator(document.forms.formEditProfile, config);
-const validatorAddCard = new FormValidator(document.forms.formAddCard, config);
+const validatorEditProfile = new FormValidator(document.forms.formEditProfile, configValidation);
+const validatorAddCard = new FormValidator(document.forms.formAddCard, configValidation);
 validatorEditProfile.enableValidation();
 validatorAddCard.enableValidation();
 
 // Создание карточки
 function createCard(data) {
-  const card = new Card(data, '#cardTemplate', config, openPopupShowPhoto);
+  const card = new Card(data, '#cardTemplate', configCard, openPopupShowPhoto);
   return card.createCard();
 }
 
@@ -37,7 +39,7 @@ const cardList = new Section(
 );
 
 // Объект с информацией о пользователе
-const userInfo = new UserInfo(config);
+const userInfo = new UserInfo(configPopup);
 
 // Обработчик формы редактирования профиля
 function handleEditProfileSubmit(formData) {
@@ -45,6 +47,7 @@ function handleEditProfileSubmit(formData) {
     name: formData.name, 
     job: formData.job
   });
+  this.close();
 }
 
 // Обработчик формы создания карточки
@@ -53,16 +56,21 @@ function handleAddCardSubmit(formData) {
     name: formData.title,
     link: formData.link
   }));
+  this.close();
 }
 
 // Попап редактирования профиля
-const popupEditProfile = new PopupWithForm('#popupEditProfile', config, handleEditProfileSubmit);
+const popupEditProfile = new PopupWithForm('#popupEditProfile', configPopup, handleEditProfileSubmit);
+popupEditProfile.setEventListeners();
 
 // Попап создания карточки
-const popupAddCard = new PopupWithForm('#popupAddCard', config, handleAddCardSubmit);
+const popupAddCard = new PopupWithForm('#popupAddCard', configPopup, handleAddCardSubmit);
+popupAddCard.setEventListeners();
 
 // Попап с фотографией
-const popupShowPhoto = new PopupWithImage('#popupShowPhoto', config);
+const popupShowPhoto = new PopupWithImage('#popupShowPhoto', configPopup);
+popupShowPhoto.setEventListeners();
+
 
 // Открытие окна редактирования профиля
 function openPopupEditProfile() {
@@ -81,16 +89,22 @@ function openPopupShowPhoto(data) {
 }
 
 // Обработчик кнопки редактирование профиля
-buttonEditProfile.addEventListener('click', () => {
+function handleButtonEditProfile() {
   openPopupEditProfile();
   validatorEditProfile.resetValidation();
-});
+}
 
 // Обработчик кнопки добавления карточки
-buttonAddCard.addEventListener('click', () => {
+function handleButtonAddCard() {
   openPopupAddCard();
   validatorAddCard.resetValidation();
-});
+}
+
+// Нажатие на кнопку редактирования профиля
+buttonEditProfile.addEventListener('click', handleButtonEditProfile);
+
+// Нажатие на кнопку добавления карточки
+buttonAddCard.addEventListener('click', handleButtonAddCard);
 
 // Заполнение начальными карточками
 cardList.renderItems();
