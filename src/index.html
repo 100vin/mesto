@@ -12,7 +12,9 @@
 
   <main class="content">
     <section class="profile">
-      <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватар пользователя">
+      <button class="profile__avatar-edit-button" type="button">
+        <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватар пользователя">
+      </button>
       <div class="profile__info">
         <h1 class="profile__name">Жак-Ив Кусто</h1>
         <button class="profile__edit-button" type="button"></button>
@@ -28,7 +30,10 @@
             <button class="element__remove-button" type="button" title="Удалить"></button>
             <div class="element__info">
               <h2 class="element__name"></h2>
-              <button class="element__like-button" type="button"></button>
+              <div class="element__like">
+                <button class="element__like-button" type="button"></button>
+                <span class="element__like-amount">0</span>
+              </div>
             </div>
           </li>
         </template>
@@ -40,6 +45,18 @@
     <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
   </footer>
 
+  <div class="popup" id="popupEditAvatar">
+    <div class="popup__container">
+      <button class="popup__close-button" type="button"></button>
+      <h2 class="popup__title">Обновить аватар</h2>
+      <form class="popup__form" name="formEditAvatar">
+        <input class="popup__input" id="input-link" name="link" type="url" value="" placeholder="Ссылка на аватар" required>
+        <span class="popup__input-error" id="input-link-error"></span>
+        <button class="popup__submit" type="submit">Сохранить</button>
+      </form>
+    </div>
+  </div>
+  
   <div class="popup" id="popupEditProfile">
     <div class="popup__container">
       <button class="popup__close-button" type="button"></button>
@@ -74,6 +91,16 @@
       <img class="popup__photo" src="#" alt="Название">
       <figcaption class="popup__caption">Название</figcaption>
     </figure>
+  </div>
+
+  <div class="popup" id="popupConfirm">
+    <div class="popup__container">
+      <button class="popup__close-button" type="button"></button>
+      <h2 class="popup__title popup__title_type_cofirm">Вы уверены?</h2>
+      <form class="popup__form" name="formConfirm">
+        <button class="popup__submit" type="submit">Да</button>
+      </form>
+    </div>
   </div>
 
 </body>
